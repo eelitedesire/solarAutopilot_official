@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <base href="<%= ingress_path %>">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+        <title>Carbonoz SolarAutopilot</title>
+	    <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="<%= ingress_path %>/css/bootstrap.min.css">
+		<link rel="stylesheet" href="<%= ingress_path %>/css/custom.css">
+		
+		
+		<!--google fonts -->
+	    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+	
+	
+	   <!--google material icon-->
+      <link href="https://fonts.googleapis.com/css2?family=Material+Icons"rel="stylesheet">
+	  <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px;
+        }
+
+        .left-section {
+            flex: 1;
+            padding-right: 32px;
+        }
+
+        .right-section {
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 50px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 28px;
+            line-height: 32px;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 17px;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            color: #1d2129;
+            vertical-align: middle;
+            box-sizing: border-box;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 12px;
+            padding-right: 30px;
+        }
+
+        .btn {
+            background-color: #000;
+            border: none;
+            border-radius: 6px;
+            font-size: 20px;
+            line-height: 48px;
+            padding: 0 16px;
+            width: 100%;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #3b608f;
+        }
+
+        .switch-form {
+            text-align: center;
+            border-top: 1px solid #dadde1;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .switch-btn {
+            background-color:  #3b608f;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            line-height: 48px;
+            padding: 0 16px;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .switch-btn:hover {
+            background-color: #0a1a07;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .left-section {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-right: 0;
+                max-width: 400px;
+                width: 100%;
+            }
+
+            .right-section {
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .form-container {
+                margin: 0 auto;
+                width: 100%;
+            }
+        }
+    </style>
+
+  </head>
+  <body>
+  
+
+
+<div class="wrapper">
+     
+	  <div class="body-overlay"></div>
+	 
+	 <!-------sidebar--design------------>
+	 
+	 <div id="sidebar">
+	    <div class="sidebar-header">
+		   <h3><img src="https://carbonoz.com/assets/images/image04.jpg?v=8b5d1d9b" class="img-fluid"/><span>Carbonoz </span></h3>
+		</div>
+        <ul class="list-unstyled component m-0">
+            <li class="active">
+                <a href="<%= ingress_path %>/" class="dashboard"><i class="material-icons">dashboard</i>Dashboard</a>
+            </li>
+            <li>
+				<a href="<%= ingress_path %>/dashboard" class="charts"><i class="material-icons">battery_charging_full</i>Energy</a>
+			</li>
+            <li>
+                <a href="<%= ingress_path %>/analytics" class="total-icon"><i class="material-icons">functions</i>Totals</a>
+            </li>
+            <li>
+                <a href="<%= ingress_path %>/messages" class="message-icon"><i class="material-icons">message</i>Message</a>
+            </li>
+            <li>
+                <a href="<%= ingress_path %>/charts" class="automation-icon"><i class="material-icons">bar_chart</i>Charts</a>
+            </li>
+            
+            <li>
+                <a href="<%= ingress_path %>/settings" class="config-icon"><i class="material-icons">settings</i>Settings</a>
+            </li>
+        </ul>
+		
+		
+		 
+		  
+	 </div>
+	 
+   <!-------sidebar--design- close----------->
+   
+   
+   
+      <!-------page-content start----------->
+   
+      <div id="content">
+	     
+		  <!------top-navbar-start-----------> 
+		     
+		  <div class="top-navbar">
+		     <div class="xd-topbar">
+			     <div class="row">
+				     <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+					    <div class="xp-menubar">
+						    <span class="material-icons text-white">signal_cellular_alt</span>
+						</div>
+					 </div>
+					 
+					 <div class="col-md-5 col-lg-3 order-3 order-md-2">
+				
+					 </div>
+					 
+					 
+					 <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
+					     <div class="xp-profilebar text-right">
+						    <nav class="navbar p-0">
+							 
+							</nav>
+						 </div>
+					 </div>
+					 
+				 </div>
+				 
+				 <div class="xp-breadcrumbbar text-center">
+				    <h4 class="page-title">Dashboard</h4>
+					<ol class="breadcrumb">
+					  <li class="breadcrumb-item"><a href="#">Carbonoz</a></li>
+					  <li class="breadcrumb-item active" aria-curent="page">SolarAutopilot</li>
+					</ol>
+				 </div>
+				 
+				 
+			 </div>
+		  </div>
+		  <!------top-navbar-end-----------> 
+		  
+		  
+		   <!------main-content-start-----------> 
+		     
+		      <div class="main-content">
+			     <div class="row">
+				    <div class="col-md-12">
+					   <div class="table-wrapper">
+					     
+					   <div class="table-title">
+					     <div class="row">
+						     <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+							    <h2 class="ml-lg-2">Settings</h2>
+							 </div>
+							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+							   
+							 </div>
+					     </div>
+					   </div>
+					   
+
+					   <div class="container">
+						<div class="left-section">
+							<h1>Carbonoz</h1>
+							<p>SolarAutopilot helps you manage your solar energy system efficiently.</p>
+						</div>
+						<div class="right-section">
+							<div class="form-container" id="configurationForm">
+								<h2>Configuration</h2>
+								<form id="inverterConfigForm">
+									<div class="input-field">
+										<select id="inverterBrand" name="inverterBrand" onchange="showInverterSettings(this.value)" required>
+											<option value="" disabled selected>Select Inverter Brand</option>
+											<option value="Axpert">Axpert</option>
+											<option value="Growatt">Growatt</option>
+											<option value="EG4">EG4</option>
+											<option value="Deye">Deye</option>
+											<option value="Kodak">Kodak</option>
+											<option value="SunSynk">SunSynk</option>
+											<option value="MPP Solar">MPP Solar</option>
+											<option value="Sol-Ark">Sol-Ark</option>
+											<option value="Mecer">Mecer</option>
+											<option value="RCT">RCT</option>
+											<option value="MUST Power">MUST Power</option>
+											<option value="SRNE">SRNE</option>
+											<option value="InfiniSolar">InfiniSolar</option>
+											<option value="Easun Power">Easun Power</option>
+											<option value="Megarevo">Megarevo</option>
+											<option value="Luxpower">Luxpower</option>
+										</select>
+									</div>
+									<div id="inverterSettingsContainer"></div>
+									<button type="button" id="save" onclick="saveInverterConfig()" class="btn">Save Configuration</button>
+								</form>
+								<div class="switch-form">
+									<button onclick="switchForm('automation')" class="switch-btn">Go to Automation</button>
+								</div>
+							</div>
+				
+							<div class="form-container" id="automationForm" style="display: none;">
+								<h2>Automation</h2>
+								<form id="automationFormInner">
+									<div class="input-field">
+										<select id="automationDay" required>
+										  <option value="" disabled selected>Select Day</option>
+										  <option value="everyday">Every Day</option>
+										  <option value="weekdays">Weekdays</option>
+										  <option value="monday">Monday</option>
+										  <option value="tuesday">Tuesday</option>
+										  <option value="wednesday">Wednesday</option>
+										  <option value="thursday">Thursday</option>
+										  <option value="friday">Friday</option>
+										  <option value="saturday">Saturday</option>
+										  <option value="sunday">Sunday</option>
+										</select>
+									</div>
+									<div class="input-field">
+										<input type="date" id="automationDate" placeholder="Date (optional)">
+									</div>
+									<div class="input-field">
+										<input type="time" id="startTime" required>
+									</div>
+									<div class="input-field">
+										<input type="time" id="endTime" required>
+									</div>
+									<div class="input-field">
+										<input type="number" id="gridThreshold" placeholder="Grid Threshold (kW)" required>
+									</div>
+									<div class="input-field">
+										<input type="number" id="batteryThreshold" placeholder="Battery Threshold (%)" required>
+									</div>
+									<div class="input-field">
+										<input type="number" id="solarThreshold" placeholder="Solar Threshold (kW)" required>
+									</div>
+									<div class="input-field">
+										<select id="automationAction" required>
+											<option value="" disabled selected>Select Action</option>
+											<option value="switchToGrid">Switch to Grid</option>
+											<option value="switchToBattery">Switch to Battery</option>
+											<option value="enableSolar">Enable Solar</option>
+										</select>
+									</div>
+									<button type="button" onclick="saveAutomationRule()" class="btn">Save Automation Rule</button>
+								</form>
+								<div class="switch-form">
+									<button onclick="switchForm('configuration')" class="switch-btn">Go to Configuration</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+
+
+					  
+					
+					
+				 
+			     </div>
+			  </div>
+		  
+		    <!------main-content-end-----------> 
+		  
+		 
+		 
+		 <!----footer-design------------->
+		 
+		 <footer class="footer">
+		    <div class="container-fluid">
+			   <div class="footer-in">
+                <p class="mb-0">&copy 2024 Carbonoz . All Rights Reserved.</p>
+			   </div>
+			</div>
+		 </footer>
+		 
+		 
+		 
+		 
+	  </div>
+   
+</div>
+
+
+
+<!-------complete html----------->
+
+
+
+
+
+  
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="<%= ingress_path %>/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="<%= ingress_path %>/js/popper.min.js"></script>
+    <script src="<%= ingress_path %>/js/bootstrap.min.js"></script>
+    <script src="<%= ingress_path %>/js/jquery-3.3.1.min.js"></script>
+  
+  
+  <script type="text/javascript">
+       $(document).ready(function(){
+	      $(".xp-menubar").on('click',function(){
+		    $("#sidebar").toggleClass('active');
+			$("#content").toggleClass('active');
+		  });
+		  
+		  $('.xp-menubar,.body-overlay').on('click',function(){
+		     $("#sidebar,.body-overlay").toggleClass('show-nav');
+		  });
+		  
+	   });
+  </script>
+  
+  <script>
+	function showInverterSettings(brand) {
+		const inverterSettingsContainer = document.getElementById('inverterSettingsContainer');
+		inverterSettingsContainer.innerHTML = '';
+
+		if (brand) {
+			inverterSettingsContainer.innerHTML = `
+				<div class="input-field">
+					<input type="text" id="workMode" name="workMode" placeholder="Work Mode">
+				</div>
+				<div class="input-field">
+					<input type="text" id="energyPattern" name="energyPattern" placeholder="Energy Pattern">
+				</div>
+				<div class="input-field">
+					<input type="text" id="maxSellPower" name="maxSellPower" placeholder="Max Sell Power">
+				</div>
+				<div class="input-field">
+					<select id="solarExportWhenBatteryFull" name="solarExportWhenBatteryFull">
+						<option value="" disabled selected>Solar Export When Battery Full</option>
+						<option value="true">True</option>
+						<option value="false">False</option>
+					</select>
+				</div>
+			`;
+		}
+	}
+
+	function saveInverterConfig() {
+		// Implement saving logic here
+		alert('Configuration saved');
+	}
+
+	function saveAutomationRule() {
+		const day = document.getElementById('automationDay').value;
+		const date = document.getElementById('automationDate').value;
+		const startTime = document.getElementById('startTime').value;
+		const endTime = document.getElementById('endTime').value;
+		const gridThreshold = document.getElementById('gridThreshold').value;
+		const batteryThreshold = document.getElementById('batteryThreshold').value;
+		const solarThreshold = document.getElementById('solarThreshold').value;
+		const action = document.getElementById('automationAction').value;
+
+		if (day && startTime && endTime && gridThreshold && batteryThreshold && solarThreshold && action) {
+			const rule = {
+				day: day,
+				date: date, // This will be an empty string if no date is selected
+				startTime: startTime,
+				endTime: endTime,
+				gridThreshold: parseFloat(gridThreshold),
+				batteryThreshold: parseFloat(batteryThreshold),
+				solarThreshold: parseFloat(solarThreshold),
+				action: action
+			};
+			automationRules.push(rule);
+			console.log('Saving automation rule:', rule);
+			// Implement actual saving logic here
+			alert('Automation rule saved');
+			document.getElementById('automationFormInner').reset();
+		} else {
+			alert('Please fill in all required fields');
+		}
+	}
+
+	function switchForm(formType) {
+		const configForm = document.getElementById('configurationForm');
+		const autoForm = document.getElementById('automationForm');
+
+		if (formType === 'automation') {
+			configForm.style.display = 'none';
+			autoForm.style.display = 'block';
+		} else {
+			configForm.style.display = 'block';
+			autoForm.style.display = 'none';
+		}
+	}
+</script>
+
+
+
+  </body>
+  
+  </html>s

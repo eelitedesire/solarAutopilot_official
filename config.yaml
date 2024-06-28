@@ -1,0 +1,40 @@
+name: "Carbonoz SolarAutopilot"
+description: "CARBONOZ SolarAutopilot on Homeassistant runs in a Docker container and will be offered in the Homeassistant Addon store for download. It includes a live Solar dashboard similiar to Solar Assistant project and allows inverter changes over MQTT."
+version: "1.0.0"
+slug: "carbonoz_solarautopilot"
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: application
+ingress: true
+ingress_port: 6789
+panel_icon: mdi:solar-power
+panel_title: Carbonoz SolarAutopilot
+ports:
+  6789/tcp: 6789
+options:
+  mqtt_ip: "core-mosquitto"
+  mqtt_port: 1883
+  mqtt_username: ""
+  mqtt_password: ""
+  influxdb_host: "192.168.1.180"
+  influxdb_port: 8086
+  influxdb_database: "homeassistant"
+  influxdb_username: "admin"
+  influxdb_password: "adminadmin"
+schema:
+  mqtt_ip: str
+  mqtt_port: port
+  mqtt_username: str
+  mqtt_password: password
+  influxdb_host: str
+  influxdb_port: port
+  influxdb_database: str
+  influxdb_username: str
+  influxdb_password: password
+map:
+  - "ssl"
