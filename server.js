@@ -170,9 +170,6 @@ function calculateDailyDifference(data) {
 
 // Route handlers
 
-app.get('/charts', (req, res) => {
-    res.render('charts', { ingress_path: process.env.INGRESS_PATH || '' });
-});
 app.get('/settings', (req, res) => {
     res.render('settings', { ingress_path: process.env.INGRESS_PATH || '' });
 });
