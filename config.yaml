@@ -22,20 +22,14 @@ options:
   mqtt_port: 1883
   mqtt_username: ""
   mqtt_password: ""
-  influxdb_host: "192.168.1.180"
-  influxdb_port: 8086
-  influxdb_database: "homeassistant"
-  influxdb_username: "admin"
-  influxdb_password: "adminadmin"
+  battery_number: 1
+  inverter_number: 1
 schema:
   mqtt_ip: str
   mqtt_port: port
   mqtt_username: str
   mqtt_password: password
-  influxdb_host: str
-  influxdb_port: port
-  influxdb_database: str
-  influxdb_username: str
-  influxdb_password: password
+  battery_number: int
+  inverter_number: int
 map:
   - "ssl"
