@@ -89,20 +89,19 @@
        
         <section>
             <main>
-                <div class="container">
-                    <h4>Icoming Messages</h4>
-                    <div class="filter-container">
-                        <label for="category-filter">Filter by category:</label>
-                        <select id="category-filter">
-                            <option value="all">All</option>
-                            <option value="inverter1">Inverter 1</option>
-                            <option value="inverter2">Inverter 2</option>
-                            <option value="loadPower">Load Power</option>
-                            <option value="gridPower">Grid Power</option>
-                        </select>
-                    </div>
-                    <ul id="message-list"></ul>
+             
+                <h1>Incoming Messages</h1>
+                <div class="controls">
+                    <select id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="inverter1">Inverter 1</option>
+                        <option value="inverter2">Inverter 2</option>
+                        <option value="loadPower">Load Power</option>
+                        <option value="gridPower">Grid Power</option>
+                    </select>
+                    <button id="refreshButton">Refresh Messages</button>
                 </div>
+                <div id="messageList"></div>
             </main>
         </section>
         <footer class="footer">
@@ -124,5 +123,38 @@
     <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
     <script src="js/charts-home.js"></script>
     <script src="js/front.js"></script>
+    <script>
+      const messageList = document.getElementById('messageList');
+      const categoryFilter = document.getElementById('categoryFilter');
+      const refreshButton = document.getElementById('refreshButton');
+      const ingressPath = '<%= ingress_path %>';
+
+      function fetchMessages() {
+          const category = categoryFilter.value;
+          fetch(`${ingressPath}/api/messages?category=${category}`)
+              .then(response => response.json())
+              .then(messages => {
+                  messageList.innerHTML = '';
+                  messages.forEach(message => {
+                      const [topic, value] = message.split(': ');
+                      const messageElement = document.createElement('div');
+                      messageElement.className = 'message';
+                      messageElement.innerHTML = `
+                          <div class="topic">${topic}</div>
+                          <div class="value">${value}</div>
+                      `;
+                      messageList.appendChild(messageElement);
+                  });
+              })
+              .catch(error => console.error('Error fetching messages:', error));
+      }
+
+      categoryFilter.addEventListener('change', fetchMessages);
+      refreshButton.addEventListener('click', fetchMessages);
+
+      // Initial fetch
+      fetchMessages();
+  </script>
+
   </body>
 </html>

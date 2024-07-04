@@ -14,6 +14,7 @@ ingress: true
 ingress_port: 6789
 panel_icon: mdi:solar-power
 panel_title: Carbonoz SolarAutopilot
+hassio_api: true
 ports:
   6789/tcp: 6789
 options:

@@ -20,11 +20,11 @@ const options = JSON.parse(fs.readFileSync('/data/options.json', 'utf8'));
 
 // InfluxDB configuration
 const influxConfig = {
-    host: options.influxdb_host,
-    port: options.influxdb_port,
-    database: options.influxdb_database,
-    username: options.influxdb_username,
-    password: options.influxdb_password,
+    host: options.mqtt_ip,
+    port: 8086,
+    database: 'homeassistant',
+    username: 'admin',
+    password: 'adminadmin',
 };
 const influx = new Influx.InfluxDB(influxConfig);
 
@@ -75,7 +75,7 @@ function connectToMqtt() {
 }
 
 // Save MQTT message to InfluxDB
-async function saveMessageToInfluxDB(topic, message) {
+function saveMessageToInfluxDB(topic, message) {
     try {
         const parsedMessage = parseFloat(message.toString());
 
@@ -91,12 +91,16 @@ async function saveMessageToInfluxDB(topic, message) {
             timestamp: timestamp * 1000000,
         };
 
-        await influx.writePoints([dataPoint]);
+        influx.writePoints([dataPoint])
+            .then(() => {
+            })
+            .catch((err) => {
+                console.error('Error saving message to InfluxDB:', err.toString());
+            });
     } catch (error) {
-        console.error('Error saving message to InfluxDB:', error.toString());
+        console.error('Error parsing message:', error.message);
     }
 }
-
 // Fetch current value from InfluxDB
 async function getCurrentValue(topic) {
     const query = `
