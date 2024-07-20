@@ -3614,10 +3614,7 @@ z-index: 10;
   height: 400px;
   margin-bottom: 20px;
 }
-
-
 /* energy */
-
 .dashboard {
   display: flex;
   flex-wrap: wrap;
@@ -3626,6 +3623,7 @@ z-index: 10;
   padding: 15px;
   background-color: #f8f9fa;
 }
+
 .chart-container {
   flex: 1 1 100%;
   min-width: 250px;
@@ -3638,26 +3636,51 @@ z-index: 10;
   padding: 15px;
   transition: all 0.3s ease;
 }
+
 .chart-container:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
   border-color: #d0d0d0;
 }
+
 .chart-container h2 {
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
   margin-bottom: 10px;
   color: #333;
   text-align: center;
   padding-bottom: 8px;
   border-bottom: 2px solid #f0f0f0;
 }
-#energy-flow-diagram svg {
-  max-width: 90%;
-  height: auto;
+
+#energy-distribution {
+  flex: 1 1 100%;
+  max-width: 100%;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
+#energy-flow-diagram {
+  width: 100%;
+  height: 100%;
+  min-height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#energy-flow-diagram svg {
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
+  max-height: 300px;
+}
+
 canvas {
-  max-width: 90%;
+  width: 100% !important;
   height: auto !important;
+  max-height: 400px;
 }
 
 /* Responsive breakpoints */
@@ -3668,17 +3691,16 @@ canvas {
   .chart-container {
     padding: 20px;
   }
-  .chart-container h2 {
-    font-size: 1.1rem;
-  }
 }
 
 @media (min-width: 768px) {
   .chart-container {
     flex: 1 1 calc(50% - 20px);
+    max-width: calc(50% - 20px);
   }
-  .chart-container h2 {
-    font-size: 1.2rem;
+  #energy-distribution {
+    flex: 1 1 100%;
+    max-width: 100%;
   }
 }
 
@@ -3689,11 +3711,20 @@ canvas {
   .chart-container {
     padding: 25px;
   }
+  #energy-flow-diagram svg {
+    max-width: 500px;
+    max-height: 400px;
+  }
 }
 
 @media (min-width: 1200px) {
   .chart-container {
     flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
+  }
+  #energy-distribution {
+    flex: 1 1 calc(66.666% - 20px);
+    max-width: calc(66.666% - 20px);
   }
 }
 
@@ -3705,130 +3736,130 @@ canvas {
   .chart-container {
     padding: 10px;
   }
-  .chart-container h2 {
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-    padding-bottom: 6px;
+  #energy-flow-diagram svg {
+    max-width: 100%;
+    max-height: 250px;
   }
 }
-
 /* analytics */
-.main-content{
+.main-content {
   flex: 1 1 100%;
   min-width: 250px;
   max-width: 100%;
-  margin-bottom: 20px;
   background-color: #fff;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.05);
-  padding: 15px;
+  padding: 30px;
   transition: all 0.3s ease;
+  margin: 20px;
 }
-.main-content:hover{
+.main-content:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
   border-color: #d0d0d0;
 }
-
+.section {
+  margin-bottom: 50px;
+}
+.chartMenu {
+  width: 100%;
+  height: 40px;
+  background: #DEAF0B;
+  color: #000;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+.chartMenu p {
+  font-size: 20px;
+  margin: 0;
+}
+.chartCard {
+  width: 100%;
+  margin-bottom: 50px;
+}
+.chartBox {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+.chartBox:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: #d0d0d0;
+}
 .table-container {
   margin: 0 auto;
-  width: 80%;
+  width: 100%;
   color: #000;
+  margin-bottom: 50px;
+  overflow-x: auto;
 }
-
 table {
   border-collapse: collapse;
   width: 100%;
 }
-
 th, td {
-  padding: 8px;
+  padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
-
 tr:hover {
   background-color: #f5f5f5;
 }
-
-.chartMenu {
-  width: 100%;
-  height: 40px;
-  background: #DEAF0B;;
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #DEAF0B;
   color: #000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  margin-top: 20px;
+}
+.btn:hover {
+  background-color: #C59F0A;
+}
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
   margin-bottom: 10px;
 }
-
-.chartMenu p {
-  padding: 2px;
-  font-size: 20px;
+.card-text {
+  font-size: 16px;
 }
-
-.chartCard {
-  width: 70vw;
-  height: calc(100vh - 40px);
+.text-secondary {
+  color: #6c757d;
+}
+.row {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  margin: -10px;
 }
-
-.chartBox { 
-  flex: 1 1 100%;
-  min-width: 300px;
-  max-width: 100%;
-  margin-bottom: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.05);
-  padding: 15px;
-  transition: all 0.3s ease;
-  margin-left: 250px; 
+.col-md-4 {
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+  padding: 10px;
 }
-.chartBox:hover{
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  border-color: #d0d0d0;
-}
-
-/* Messages content styles */
-main {
-  /* padding: 2rem 0; */
-  color: #000;
-  flex: 1 1 100%;
-  min-width: 250px;
-  max-width: 100%;
-  margin-bottom: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.05);
-  padding: 15px;
-  transition: all 0.3s ease;
-}
-main:hover{
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  border-color: #d0d0d0;
-}
-h4 {
-  color: #000;
-  margin-bottom: 1rem;
-}
-
-/* Filter styles */
-.filter-container {
-  margin-bottom: 1rem;
-}
-
-#category-filter {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #bdc3c7;
-  border-radius: 4px;
-  background-color: #fff;
-  border-radius: 50px;
+@media (max-width: 768px) {
+  .col-md-4 {
+      flex: 0 0 100%;
+      max-width: 100%;
+  }
 }
 
 /* Message list styles */

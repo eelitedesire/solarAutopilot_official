@@ -327,7 +327,7 @@
 
         // Load and display universal settings
         async function loadUniversalSettings() {
-            const settings = await fetchAPI('/api/universal-settings');
+            const settings = await fetchAPI('<%= ingress_path %>/api/universal-settings');
             Object.entries(settings).forEach(([key, value]) => {
                 const element = document.getElementById(key);
                 if (element) {
@@ -342,11 +342,11 @@
 
         // Load inverter types and settings
         async function loadInverterSettings() {
-            const types = await fetchAPI('/api/inverter-types');
+            const types = await fetchAPI('<%= ingress_path %>/api/inverter-types');
             const selectElement = document.getElementById('inverter-type');
             selectElement.innerHTML = types.map(type => `<option value="${type}">${type}</option>`).join('');
             
-            const { type, settings } = await fetchAPI('/api/inverter-settings');
+            const { type, settings } = await fetchAPI('<%= ingress_path %>/api/inverter-settings');
             selectElement.value = type;
             
             const workModeSelect = document.getElementById('workMode');
@@ -361,7 +361,7 @@
 
         // Load and display automation rules
         async function loadAutomationRules() {
-            const rules = await fetchAPI('/api/automation-rules');
+            const rules = await fetchAPI('<%= ingress_path %>/api/automation-rules');
             const tableBody = document.querySelector('#automation-rules-table tbody');
             tableBody.innerHTML = rules.map(rule => `
                 <tr>
@@ -379,7 +379,7 @@
 
         // Load and display scheduled settings
         async function loadScheduledSettings() {
-            const settings = await fetchAPI('/api/scheduled-settings');
+            const settings = await fetchAPI('<%= ingress_path %>/api/scheduled-settings');
             const tableBody = document.querySelector('#scheduled-settings-table tbody');
             tableBody.innerHTML = settings.map(setting => `
                 <tr>
@@ -403,7 +403,7 @@
             settings.gridChargeOn = formData.get('gridChargeOn') === 'on';
             settings.generatorChargeOn = formData.get('generatorChargeOn') === 'on';
             try {
-                await fetchAPI('/api/universal-settings', 'POST', settings);
+                await fetchAPI('<%= ingress_path %>/api/universal-settings', 'POST', settings);
                 alert('Universal settings updated successfully');
                 // Send MQTT messages
                 Object.entries(settings).forEach(([key, value]) => {
@@ -424,7 +424,7 @@
                 maxSellPower: parseInt(document.getElementById('maxSellPower').value)
             };
             try {
-                await fetchAPI('/api/inverter-settings', 'POST', { type, settings });
+                await fetchAPI('<%= ingress_path %>/api/inverter-settings', 'POST', { type, settings });
                 alert('Inverter settings updated successfully');
                 // Send MQTT messages
                 Object.entries(settings).forEach(([key, value]) => {
@@ -439,7 +439,7 @@
             const newType = prompt('Enter new inverter type:');
             if (newType) {
                 try {
-                    await fetchAPI('/api/inverter-types', 'POST', { type: newType, settings: {} });
+                    await fetchAPI('<%= ingress_path %>/api/inverter-types', 'POST', { type: newType, settings: {} });
                     alert('New inverter type added: ' + newType);
                     loadInverterSettings();
                 } catch (error) {
@@ -452,7 +452,7 @@
             const type = document.getElementById('inverter-type').value;
             if (confirm(`Are you sure you want to delete the inverter type: ${type}?`)) {
                 try {
-                    await fetchAPI(`/api/inverter-types/${type}`, 'DELETE');
+                    await fetchAPI(`<%= ingress_path %>/api/inverter-types/${type}`, 'DELETE');
                     alert('Inverter type deleted successfully');
                     loadInverterSettings();
                 } catch (error) {
@@ -496,9 +496,9 @@
 
             try {
                 if (currentRuleId) {
-                    await fetchAPI(`/api/automation-rules/${currentRuleId}`, 'PUT', rule);
+                    await fetchAPI(`<%= ingress_path %>/api/automation-rules/${currentRuleId}`, 'PUT', rule);
                 } else {
-                    await fetchAPI('/api/automation-rules', 'POST', rule);
+                    await fetchAPI('<%= ingress_path %>/api/automation-rules', 'POST', rule);
                 }
                 ruleModal.style.display = 'none';
                 loadAutomationRules();
@@ -510,7 +510,7 @@
         async function editRule(id) {
             currentRuleId = id;
             try {
-                const rule = await fetchAPI(`/api/automation-rules/${id}`);
+                const rule = await fetchAPI(`<%= ingress_path %>/api/automation-rules/${id}`);
                 document.getElementById('rule-name').value = rule.name;
                 document.getElementById('rule-conditions').value = JSON.stringify(rule.conditions, null, 2);
                 document.getElementById('rule-actions').value = JSON.stringify(rule.actions, null, 2);
@@ -524,7 +524,7 @@
         async function deleteRule(id) {
             if (confirm('Are you sure you want to delete this rule?')) {
                 try {
-                    await fetchAPI(`/api/automation-rules/${id}`, 'DELETE');
+                    await fetchAPI(`<%= ingress_path %>/api/automation-rules/${id}`, 'DELETE');
                     loadAutomationRules();
                 } catch (error) {
                     alert('Failed to delete rule: ' + error.message);
@@ -537,7 +537,7 @@
         });
 
         async function editScheduledSetting(id = null) {
-            let setting = id ? await fetchAPI(`/api/scheduled-settings/${id}`) : {};
+            let setting = id ? await fetchAPI(`<%= ingress_path %>/api/scheduled-settings/${id}`) : {};
             const key = prompt('Enter setting key:', setting.key || '');
             const value = prompt('Enter setting value:', setting.value || '');
             const day = prompt('Enter day of week:', setting.day || '');
@@ -547,9 +547,9 @@
                 const updatedSetting = { key, value, day, hour: parseInt(hour) };
                 try {
                     if (id) {
-                        await fetchAPI(`/api/scheduled-settings/${id}`, 'PUT', updatedSetting);
+                        await fetchAPI(`<%= ingress_path %>/api/scheduled-settings/${id}`, 'PUT', updatedSetting);
                     } else {
-                        await fetchAPI('/api/scheduled-settings', 'POST', updatedSetting);
+                        await fetchAPI('<%= ingress_path %>/api/scheduled-settings', 'POST', updatedSetting);
                     }
                     loadScheduledSettings();
                 } catch (error) {
@@ -561,7 +561,7 @@
         async function deleteScheduledSetting(id) {
             if (confirm('Are you sure you want to delete this scheduled setting?')) {
                 try {
-                    await fetchAPI(`/api/scheduled-settings/${id}`, 'DELETE');
+                    await fetchAPI(`<%= ingress_path %>/api/scheduled-settings/${id}`, 'DELETE');
                     loadScheduledSettings();
                 } catch (error) {
                     alert('Failed to delete scheduled setting: ' + error.message);
@@ -583,7 +583,7 @@
 
         async function sendMQTTMessage(topic, value) {
             try {
-                await fetchAPI('/api/mqtt', 'POST', { topic: `solar_assistant_DEYE/${topic}`, message: value });
+                await fetchAPI('<%= ingress_path %>/api/mqtt', 'POST', { topic: `solar_assistant_DEYE/${topic}`, message: value });
                 addToAutomationLog(`Sent MQTT message: ${topic} = ${value}`);
             } catch (error) {
                 console.error('Failed to send MQTT message:', error);
