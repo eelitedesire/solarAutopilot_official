@@ -17,6 +17,7 @@ panel_title: Carbonoz SolarAutopilot
 hassio_api: true
 ports:
   6789/tcp: 6789
+  3000/tcp: 3000 # Grafana port
 options:
   mqtt_ip: "core-mosquitto"
   mqtt_port: 1883

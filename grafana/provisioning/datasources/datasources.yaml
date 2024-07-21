@@ -1,0 +1,11 @@
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB
+    type: influxdb
+    access: proxy
+    url: http://${MQTT_IP}:8086 # Use the Home Assistant IP
+    database: homeassistant
+    user: admin
+    password: adminadmin
+    isDefault: true
