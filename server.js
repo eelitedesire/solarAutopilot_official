@@ -8,6 +8,7 @@ const ejs = require('ejs');
 const moment = require('moment');
 const WebSocket = require('ws');
 const { http } = require('follow-redirects');
+const retry = require('async-retry');
 
 const app = express();
 const port = process.env.PORT || 6789;
@@ -175,7 +176,7 @@ function updateSystemState(topic, message) {
 }
 
 // Save MQTT message to InfluxDB
-function saveMessageToInfluxDB(topic, message) {
+async function saveMessageToInfluxDB(topic, message) {
     try {
         const parsedMessage = parseFloat(message.toString());
 
@@ -191,15 +192,14 @@ function saveMessageToInfluxDB(topic, message) {
             timestamp: timestamp * 1000000,
         };
 
-        influx.writePoints([dataPoint])
-            .then(() => {
-                // console.log('Message saved to InfluxDB');
-            })
-            .catch((err) => {
-                console.error('Error saving message to InfluxDB:', err.toString());
-            });
-    } catch (error) {
-        console.error('Error parsing message:', error.message);
+        await retry(async () => {
+            await influx.writePoints([dataPoint]);
+        }, {
+            retries: 5,
+            minTimeout: 1000
+        });
+    } catch (err) {
+        console.error('Error saving message to InfluxDB:', err.response ? err.response.body : err.message);
     }
 }
 
