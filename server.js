@@ -42,7 +42,7 @@ proxy.on('error', (err, req, res) => {
 const influxConfig = {
     host: options.mqtt_ip,
     port: 8086,
-    database: 'homeassistant',
+    database: 'carbonoz',
     username: 'admin',
     password: 'adminadmin',
 };
